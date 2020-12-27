@@ -4,7 +4,7 @@
 
 # Find something which starts with the number. I name the actual
 # scripts decently, this not so much
-matching=`find . -type f -name "$1_*.rb"`
+matching=`find . -type f -name "$1_*.rb" | head -n 1`
 
 # Then peel the extension off of it
 name=`basename $matching .rb`
