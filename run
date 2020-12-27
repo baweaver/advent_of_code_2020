@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Ha, here we are using Bash.
+
+# Find something which starts with the number. I name the actual
+# scripts decently, this not so much
+matching=`find . -type f -name "$1_*.rb"`
+
+# Then peel the extension off of it
+name=`basename $matching .rb`
+
+# ...and throw it to Ruby, with the input from the inputs dir with the same
+# name, except a txt extension
+ruby ./"$name".rb ./inputs/"$name".txt
