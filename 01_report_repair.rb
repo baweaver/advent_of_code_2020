@@ -6,9 +6,9 @@ NOT_FOUND = [-1, -1]
 # to 2020
 def duals(input, target: 2020)
   # So we transform our input into ints, and bring along a hash for the ride
-  input.map(&:to_i).each_with_object({}) do |v, duels|
+  input.map(&:to_i).each_with_object({}) do |v, duals|
     # Why? Well let's skip this line for a second and look at the next
-    return [v, duels[v]] if duels[v]
+    return [v, duals[v]] if duals[v]
 
     # We want a mapping of what number we need to pair `v` with to get to
     # 2020, so we use some algebra to say `2020 - v` to find it!
@@ -16,7 +16,7 @@ def duals(input, target: 2020)
     # That means with a value of `1020` our hash starts to look like
     # `{ 1000 => 1020}`. If `1000` happens to come along, great! We found
     # its partner and we can return it and `v` like above!
-    duels[target - v] = v
+    duals[target - v] = v
   end
 
   # Otherwise we return back our idea of "not found"
