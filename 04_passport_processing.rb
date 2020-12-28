@@ -36,7 +36,7 @@ def valid_passports(passports)
     #   parsed_passport in ^valid_keys
     #
     # But what does work is this:
-    parsed_passport if parsed_passport in ^valid_keys_map | ^valid_north_pole
+    parsed_passport if parsed_passport in VALID_KEYS_MAP | valid_north_pole
 
     # The `^` here makes sure `in` doesn't try and overwrite that hash and
     # return `true`. I think this is unintuitive, but could see why it works
