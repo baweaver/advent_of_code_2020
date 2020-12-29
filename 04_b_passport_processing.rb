@@ -10,7 +10,7 @@
 require 'any'
 
 # Int representation of string in a range
-str_int_within = -> range { -> v { range.include? v.to_i } }
+str_int_within = -> range { -> v { range.cover? v.to_i } }
 
 HEIGHT_REGEX          = /(?<n>\d+) ?(?<units>cm|in)/
 HAIR_COLOR_REGEX      = /^\#[0-9a-z]{6}$/
@@ -24,15 +24,15 @@ VALID_IN_HEIGHT       = str_int_within[59..76]
 
 # Demonstrating proc composition
 VALID_HEIGHT =
-  proc { HEIGHT_REGEX.match(_1) } >>
+  -> { HEIGHT_REGEX.match(_1) } >>
   # If there's no match it's `nil`, meaning we need to use
   # the lonely (`&.`) operator to let it pass through
-  proc { _1&.named_captures } >>
+  -> { _1&.named_captures } >>
   # Transform the keys to symbols again for pattern matching
-  proc { _1&.transform_keys(&:to_sym) } >>
+  -> { _1&.transform_keys(&:to_sym) } >>
   # This is the same trick with `Any`: { key: Any} is always true for
   # a match
-  proc {
+  -> {
     case _1
     # Note you can't use inline proc calls here, I've tried, hence
     # the constant instead. This relies on `Proc#===` being `call` to
